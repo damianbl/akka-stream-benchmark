@@ -12,5 +12,10 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-testkit" % akkaVersion,
   "ch.qos.logback" % "logback-classic" % "1.2.3",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.7.2",
+  "com.storm-enroute" %% "scalameter" % "0.8.2",
   "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 )
+
+testFrameworks += new TestFramework("org.scalameter.ScalaMeterFramework")
+
+parallelExecution in Test := false
