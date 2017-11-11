@@ -17,8 +17,8 @@ object Config {
 
 case class StreamWork(from: Long, to: Long)
 
-class StreamActorFutureSuccesfull(implicit val materializer: ActorMaterializer) extends Actor {
-  private val logger = Logger(classOf[StreamActorFutureSuccesfull])
+class StreamActorFutureSuccessful(implicit val materializer: ActorMaterializer) extends Actor {
+  private val logger = Logger(classOf[StreamActorFutureSuccessful])
 
   override def receive: Receive = {
     case m: StreamWork =>
@@ -64,7 +64,7 @@ object AkkaBenchmark extends App {
   implicit val materializer: ActorMaterializer = ActorMaterializer()
 
   val streamActorFutureSuccessful: ActorRef = system.actorOf(
-    Props(new StreamActorFutureSuccesfull()), "streamActorFutureSuccessful"
+    Props(new StreamActorFutureSuccessful()), "streamActorFutureSuccessful"
   )
 
   val streamActorFutureApply: ActorRef = system.actorOf(
