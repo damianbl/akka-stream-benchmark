@@ -11,6 +11,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 object Config {
   val NrOfCores = 8
+
+  val NrOfIterations = 10000000
 }
 
 case class StreamWork(from: Long, to: Long)
@@ -26,7 +28,7 @@ class StreamActorFutureSuccesfull(implicit val materializer: ActorMaterializer) 
         val t0 = System.nanoTime()
 
         Source(m.from to m.to)
-          .mapAsync(Config.NrOfCores)(_ => Future.successful("test-string"))
+          .mapAsync(Config.NrOfCores)(_ => Future.successful("just-return-a-string"))
           .runWith(Sink.ignore)
           .onComplete(_ => logger.info(s"Message processing total time: ${(System.nanoTime() - t0) / 1000000} ms"))
       }
@@ -46,7 +48,7 @@ class StreamActorFutureApply(implicit val materializer: ActorMaterializer) exten
         val t0 = System.nanoTime()
 
         Source(m.from to m.to)
-          .mapAsync(Config.NrOfCores)(_ => Future("test-string"))
+          .mapAsync(Config.NrOfCores)(_ => Future("just-return-a-string"))
           .runWith(Sink.ignore)
           .onComplete(_ => logger.info(s"Message processing total time: ${(System.nanoTime() - t0) / 1000000} ms"))
       }
@@ -69,7 +71,7 @@ object AkkaBenchmark extends App {
     Props(new StreamActorFutureApply()), "streamActorFutureApply"
   )
 
-  streamActorFutureSuccessful ! StreamWork(1L, 10000000L)
+  streamActorFutureSuccessful ! StreamWork(1, Config.NrOfIterations)
 
-  streamActorFutureApply ! StreamWork(1L, 10000000L)
+  streamActorFutureApply ! StreamWork(1, Config.NrOfIterations)
 }
