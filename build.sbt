@@ -2,9 +2,11 @@ name := "akka-quickstart-scala"
 
 version := "1.0"
 
-scalaVersion := "2.12.2"
+scalaVersion := "2.11.11"
 
 lazy val akkaVersion = "2.5.3"
+
+resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor" % akkaVersion,
@@ -12,10 +14,5 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-testkit" % akkaVersion,
   "ch.qos.logback" % "logback-classic" % "1.2.3",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.7.2",
-  "com.storm-enroute" %% "scalameter" % "0.8.2",
-  "org.scalatest" %% "scalatest" % "3.0.1" % "test"
+  "com.storm-enroute" % "scalameter-core_2.11" % "0.8.2"
 )
-
-testFrameworks += new TestFramework("org.scalameter.ScalaMeterFramework")
-
-parallelExecution in Test := false
