@@ -17,7 +17,7 @@ package object benchmark2 {
     val NrOfIterations = 10000
   }
 
-  case class DoWork(from: Long, to: Long)
+  case class DoWork(nrOfIterations: Long)
 
   //10 ms work
   case class SampleWork() {
@@ -38,7 +38,7 @@ package object benchmark2 {
 
           val t0 = System.nanoTime()
 
-          Source(m.from to m.to)
+          Source(1L to m.nrOfIterations)
             .mapAsync(Config.NrOfCores)(value => Future.successful(SampleWork().work(value.toString)))
             .runWith(Sink.ignore)
             .onComplete(_ => logger.info(s"Message processing total time: ${(System.nanoTime() - t0) / 1000000} ms"))
@@ -58,7 +58,7 @@ package object benchmark2 {
 
           val t0 = System.nanoTime()
 
-          Source(m.from to m.to)
+          Source(1L to m.nrOfIterations)
             .mapAsync(Config.NrOfCores)(value => Future {SampleWork().work(value.toString)})
             .runWith(Sink.ignore)
             .onComplete(_ => logger.info(s"Message processing total time: ${(System.nanoTime() - t0) / 1000000} ms"))
@@ -84,7 +84,7 @@ object FutureBenchmark2 extends App {
     Props(new StreamActorFutureApply()), "streamActorFutureApply"
   )
 
-  streamActorFutureSuccessfulWithWork ! DoWork(1, Config.NrOfIterations)
+  streamActorFutureSuccessfulWithWork ! DoWork(Config.NrOfIterations)
 
-  streamActorFutureApplyWithWork ! DoWork(1, Config.NrOfIterations)
+  streamActorFutureApplyWithWork ! DoWork(Config.NrOfIterations)
 }

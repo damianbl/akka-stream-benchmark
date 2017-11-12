@@ -17,7 +17,7 @@ package object benchmark1 {
     val NrOfIterations = 10000000
   }
 
-  case class StreamWork(from: Long, to: Long)
+  case class StreamWork(nrOfIterations: Long)
 
   class StreamActorFutureSuccessful(implicit val materializer: ActorMaterializer) extends Actor {
     private val logger = Logger(classOf[StreamActorFutureSuccessful])
@@ -29,7 +29,7 @@ package object benchmark1 {
 
           val t0 = System.nanoTime()
 
-          Source(m.from to m.to)
+          Source(1L to m.nrOfIterations)
             .mapAsync(Config.NrOfCores)(_ => Future.successful("just-return-a-string"))
             .runWith(Sink.ignore)
             .onComplete(_ => logger.info(s"Message processing total time: ${(System.nanoTime() - t0) / 1000000} ms"))
@@ -49,7 +49,7 @@ package object benchmark1 {
 
           val t0 = System.nanoTime()
 
-          Source(m.from to m.to)
+          Source(1L to m.nrOfIterations)
             .mapAsync(Config.NrOfCores)(_ => Future("just-return-a-string"))
             .runWith(Sink.ignore)
             .onComplete(_ => logger.info(s"Message processing total time: ${(System.nanoTime() - t0) / 1000000} ms"))
@@ -77,7 +77,7 @@ object FutureBenchmark1 extends App {
     Props(new StreamActorFutureApply()), "streamActorFutureApply"
   )
 
-  streamActorFutureSuccessful ! StreamWork(1, Config.NrOfIterations)
+  streamActorFutureSuccessful ! StreamWork(Config.NrOfIterations)
 
-  streamActorFutureApply ! StreamWork(1, Config.NrOfIterations)
+  streamActorFutureApply ! StreamWork(Config.NrOfIterations)
 }
