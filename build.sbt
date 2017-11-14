@@ -1,12 +1,21 @@
 name := "akka-quickstart-scala"
 
-version := "1.0"
+version := "1.1"
 
 scalaVersion := "2.11.11"
 
 lazy val akkaVersion = "2.5.3"
 
 resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
+
+
+credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
+
+resolvers += "local-central" at "http://192.168.1.100:8081/nexus/content/repositories/releases/"
+
+externalResolvers <<= resolvers map { rs =>
+  Resolver.withDefaultResolvers(rs, mavenCentral = false)
+}
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor" % akkaVersion,
@@ -16,3 +25,28 @@ libraryDependencies ++= Seq(
   "com.typesafe.scala-logging" %% "scala-logging" % "3.7.2",
   "com.storm-enroute" % "scalameter-core_2.11" % "0.8.2"
 )
+
+publishArtifact in Test := false
+publishMavenStyle := true
+pomIncludeRepository := { _ => false }
+pomExtra := <url>http://blog.dblazejewski.com</url>
+  <licenses>
+    <license>
+      <name>MIT</name>
+      <url>http://opensource.org/licenses/MIT</url>
+    </license>
+  </licenses>
+  <scm>
+    <connection></connection>
+    <developerConnection></developerConnection>
+    <url></url>
+  </scm>
+  <developers>
+    <developer>
+      <id></id>
+      <name></name>
+      <url></url>
+    </developer>
+  </developers>
+
+publishTo := Some("nexus" at "http://192.168.1.100:8081/nexus/content/repositories/releases/")

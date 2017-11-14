@@ -22,4 +22,3 @@ WORKDIR /akka-stream
 ADD . /akka-stream
 
 CMD sbt "runMain com.dblazejewski.akka.stream.FutureBenchmark1"
-CMD sbt "runMain com.dblazejewski.akka.stream.FutureBenchmark2"
