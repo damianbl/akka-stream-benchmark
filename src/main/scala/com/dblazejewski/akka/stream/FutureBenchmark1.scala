@@ -3,6 +3,7 @@ package com.dblazejewski.akka.stream
 import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.{Sink, Source}
+import com.dblazejewski.akka.remote.model.RemoteProtocol.StreamWork
 import com.typesafe.scalalogging.Logger
 import org.scalameter._
 
@@ -16,8 +17,6 @@ package object benchmark1 {
 
     val NrOfIterations = 10000000
   }
-
-  case class StreamWork(nrOfIterations: Long)
 
   class StreamActorFutureSuccessful(implicit val materializer: ActorMaterializer) extends Actor {
     private val logger = Logger(classOf[StreamActorFutureSuccessful])

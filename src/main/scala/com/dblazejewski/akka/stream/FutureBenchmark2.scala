@@ -3,6 +3,7 @@ package com.dblazejewski.akka.stream
 import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.{Sink, Source}
+import com.dblazejewski.akka.remote.model.RemoteProtocol.DoWork
 import com.typesafe.scalalogging.Logger
 import org.scalameter._
 
@@ -16,8 +17,6 @@ package object benchmark2 {
 
     val NrOfIterations = 10000
   }
-
-  case class DoWork(nrOfIterations: Long)
 
   //10 ms work
   case class SampleWork() {
