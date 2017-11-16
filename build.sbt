@@ -1,6 +1,6 @@
 name := "akka-quickstart-scala"
 
-version := "1.1"
+version := "1.0.0"
 
 scalaVersion := "2.11.11"
 
@@ -21,7 +21,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-remote" % akkaVersion,
   "com.typesafe.akka" %% "akka-stream" % akkaVersion,
   "com.typesafe.akka" %% "akka-testkit" % akkaVersion,
-  "com.dblazejewski" %% "common-model" % "1.0.1",
+  "com.dblazejewski" %% "common-model" % "1.0.2",
   "ch.qos.logback" % "logback-classic" % "1.2.3",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.7.2",
   "com.storm-enroute" % "scalameter-core_2.11" % "0.8.2"
