@@ -4,6 +4,7 @@ import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.{Sink, Source}
 import com.dblazejewski.akkaremote.model.RemoteProtocol.StreamWork
+import com.typesafe.config.ConfigFactory
 import com.typesafe.scalalogging.Logger
 import org.scalameter._
 
