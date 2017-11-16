@@ -7,18 +7,18 @@ scalaVersion := "2.11.11"
 lazy val akkaVersion = "2.5.3"
 
 resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
-
+resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
+resolvers += "local-central" at "http://192.168.1.100:8081/nexus/content/repositories/releases/"
 
 credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
 
-resolvers += "local-central" at "http://192.168.1.100:8081/nexus/content/repositories/releases/"
-
 externalResolvers <<= resolvers map { rs =>
-  Resolver.withDefaultResolvers(rs, mavenCentral = false)
+  Resolver.withDefaultResolvers(rs, mavenCentral = true)
 }
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor" % akkaVersion,
+  "com.typesafe.akka" %% "akka-remote" % akkaVersion,
   "com.typesafe.akka" %% "akka-stream" % akkaVersion,
   "com.typesafe.akka" %% "akka-testkit" % akkaVersion,
   "com.dblazejewski" %% "common-model" % "1.0.1",

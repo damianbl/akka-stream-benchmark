@@ -3,6 +3,8 @@ FROM openjdk:8u151
 ENV SCALA_VERSION 2.11.11
 ENV SBT_VERSION 0.13.15
 
+EXPOSE 2552
+
 RUN touch /usr/lib/jvm/java-8-openjdk-amd64/release
 
 RUN \
