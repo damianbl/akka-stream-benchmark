@@ -16,6 +16,8 @@ externalResolvers <<= resolvers map { rs =>
   Resolver.withDefaultResolvers(rs, mavenCentral = true)
 }
 
+mainClass in (Compile, run) := Some("com.dblazejewski.akka.stream.FutureBenchmark1")
+
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor" % akkaVersion,
   "com.typesafe.akka" %% "akka-remote" % akkaVersion,
